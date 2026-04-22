@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+
+{% block title %}Корзина - Oasis Ceramics{% endblock %}
+
+{% block content %}
+<div class="container cart-page">
+    <h1 class="page-title">Ваша корзина</h1>
+    
+    {% if cart_items %}
+    <div class="cart-container">
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Товар</th>
+                    <th>Цена</th>
+                    <th>Количество</th>
+                    <th>Итого</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>
+                        <div class="cart-product-info">
+                            {% if item.product.image_url %}
+                                <img src="{{ item.product.image_url }}" alt="{{ item.product.name }}" class="cart-img">
+                            {% endif %}
+                            <span>{{ item.product.name }}</span>
+                        </div>
+                    </td>
+                    <td>{{ item.product.price }} сум</td>
+                    <td>{{ item.quantity }} шт.</td>
+                    <td class="bold">{{ item.total }} сум</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <div class="cart-summary">
+            <h3>Общая сумма: <span>{{ total_price }} сум</span></h3>
+            <div class="cart-actions">
+                <a href="{{ url_for('clear_cart') }}" class="btn btn-outline">Очистить корзину</a>
+                <button class="btn btn-primary" onclick="alert('Это демонстративная версия магазина. Оформление заказа не подключено.')">Оформить заказ</button>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="empty-msg">
+        <h2>Корзина пуста</h2>
+        <p>Вы еще не добавили ни одного товара.</p>
+        <a href="{{ url_for('catalog') }}" class="btn btn-primary mt-2">Перейти в каталог</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

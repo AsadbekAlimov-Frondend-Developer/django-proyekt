@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Магазин посуды{% endblock %}</title>
+    <!-- Подключаем шрифты Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Наш собственный CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    
+    <!-- Шапка сайта (Навигация) -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="{{ url_for('index') }}" class="logo">Oasis<span>Ceramics</span></a>
+            <nav class="nav-links">
+                <a href="{{ url_for('index') }}">Главная</a>
+                <a href="{{ url_for('catalog') }}">Каталог</a>
+                <a href="{{ url_for('cart') }}" class="cart-link">
+                    Корзина 
+                    {% set cart = session.get('cart', {}) %}
+                    {% if cart %}
+                        <span class="cart-count">{{ cart|length }}</span>
+                    {% endif %}
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Вывод всплывающих уведомлений (если товар добавлен в корзину) -->
+    <div class="container flash-container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash-message">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Основной контент страницы, который меняется -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Подвал сайта -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Oasis Ceramics. Выполнил: Асадбек Алимов для дипломной работы.</p>
+        </div>
+    </footer>
+
+    <!-- Скрипт для скрытия уведомлений через 3 секунды -->
+    <script>
+        setTimeout(function() {
+            let flashes = document.querySelectorAll('.flash-message');
+            flashes.forEach(flash => flash.style.display = 'none');
+        }, 3000);
+    </script>
+</body>
+</html>
