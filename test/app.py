@@ -30,7 +30,7 @@ def create_app():
 
     return app
 
+app = create_app()
+
 if __name__ == '__main__':
-    # Эта строка запускает сервер на порту 5000 только если файл запущен напрямую
-    app = create_app()
     app.run(debug=True, port=5000)
