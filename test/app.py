@@ -15,6 +15,10 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///store.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+    # Данные для входа в Админ-панель
+    app.config['ADMIN_USERNAME'] = 'admin'
+    app.config['ADMIN_PASSWORD'] = 'admin777'
+
     # Инициализация базы данных
     db.init_app(app)
     
