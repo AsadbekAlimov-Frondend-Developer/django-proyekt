@@ -1,19 +1,19 @@
-from flask import Flask
-from models import db
-from routes import init_routes
-from admin_setup import init_admin
+fr om flask import Flask
+fro m models import db
+fro m routes import init_routes
+fro m admin_setup import init_admin
 
-def create_app():
+def crea te_app():
     # Создаем экземпляр приложения Flask
-    app = Flask(__name__)
+    app = F lask(__name__)
     
     # Секретный ключ нужен для работы сессий (корзины). 
     # На реальном сервере он должен быть сложным и скрытым.
-    app.config['SECRET_KEY'] = 'super-secret-key-for-diploma' 
+    app.conf ig['SECRET_KEY'] = 'super-secret-key-for-diploma' 
     
     # Настройка базы данных. Мы используем SQLite - она хранит всё в одном файле.
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///store.db'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.conf ig['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///store.db'
+    app.conf ig['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # Данные для входа в Админ-панель
     app.config['ADMIN_USERNAME'] = 'admin'
